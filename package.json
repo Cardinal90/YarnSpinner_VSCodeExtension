@@ -22,7 +22,7 @@
     ],
     "main": "./out/extension.js",
     "qna": false,
-    "publisher": "SecretLab",
+    "publisher": "Cardinal90",
     "icon": "icon.png",
     "galleryBanner": {
         "color": "#C5E29B",
@@ -42,8 +42,8 @@
         "buildWebViewProduction": "webpack --mode=production -c ./webview/webpack.config.js",
         "buildVSCodeDevelopment": "npm run buildExtension && npm run buildWebViewDevelopment",
         "buildVSCodeProduction": "npm run buildExtension && npm run buildWebViewProduction",
-        "buildServerDevelopment": "env-cmd --no-override -x dotnet build --no-restore -c Debug '$LANGUAGESERVER_CSPROJ_PATH'",
-        "buildServerProduction": "env-cmd --no-override -x dotnet publish -c Debug -o out/server '$LANGUAGESERVER_CSPROJ_PATH'",
+        "buildServerDevelopment": "env-cmd --no-override -x dotnet build --no-restore -c Debug $LANGUAGESERVER_CSPROJ_PATH",
+        "buildServerProduction": "env-cmd --no-override -x dotnet publish -c Debug -o out/server $LANGUAGESERVER_CSPROJ_PATH",
         "buildDebug": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeDevelopment\" \"npm:buildServerDevelopment\"",
         "buildProduction": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeProduction\" \"npm:buildServerProduction\"",
         "lint": "eslint . --ext .ts,.tsx",
@@ -140,7 +140,10 @@
         "configurationDefaults": {
             "files.associations": {
                 "*.yarnproject": "jsonc"
-            }
+            },
+			"[yarnspinner]": {
+				"editor.semanticHighlighting.enabled": false
+			}
         },
         "languages": [
             {

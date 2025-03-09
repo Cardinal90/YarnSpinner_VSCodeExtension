@@ -40,9 +40,6 @@
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ],
-            "env": {
-                "VSCODE_DEBUG_MODE": "true"
-            },
             "envFile": "${workspaceFolder}/.env",
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",

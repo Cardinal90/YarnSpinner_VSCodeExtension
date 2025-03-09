@@ -10,22 +10,40 @@
 		"nodes": {
 			"patterns": [
 				{
+					"match": "^title\\s*:",
+					"name": "storage.type"
+				},
+				{
+					"match": "(?<=title\\s*:).*$",
+					"name": "support.class"
+				},
+				{
 					"comment": "Header field name",
 					"match": "^\\w+\\:",
-					"name": "keyword.other"
+					"name": "variable.name"
 				},
 				{
 					"match": "(?<=:).*$",
-					"name": "keyword.control"
+					"name": "variable.name"
 				},
 				{
 					"include": "#nodebody"
+				},
+				{
+					"match": "^.*$",
+					"name": "markup.inserted"
 				}
 			]
 		},
 		"nodebody": {
 			"begin": "---",
 			"end": "===",
+			"beginCaptures": {
+				"0": { "name": "keyword.control" }
+			},
+			"endCaptures": {
+				"0": { "name": "keyword.control" }
+			},
 			"patterns": [
 				{
 					"include": "#comments"
@@ -38,6 +56,25 @@
 				},
 				{
 					"include": "#options"
+				},
+				{
+					"include": "#csharp_code"
+				}
+			]
+		},
+		"csharp_code": {
+			"begin": "<%",
+			"end": "%>",
+			"beginCaptures": {
+				"0": { "name": "markup.inserted" }
+			},
+			"endCaptures": {
+				"0": { "name": "markup.inserted" }
+			},
+			"patterns": [
+				{
+					"match": ".+?",
+					"name": "markup.inserted"
 				}
 			]
 		},
@@ -74,11 +111,20 @@
 					"name": "keyword.other",
 					"begin": "\\<\\<",
 					"end": "\\>\\>",
+					"beginCaptures": {
+						"0": { "name": "keyword.control" }
+					},
+					"endCaptures": {
+						"0": { "name": "keyword.control" }
+					},
 					"patterns": [
 						{
 							"comment": "First word in a command",
 							"match": "(?<=\\<\\<)\\w+",
-							"name": "support.function"
+							"name": "keyword.control"
+						},
+						{
+							"include": "#csharp_code"
 						},
 						{
 							"include": "#keywords"
@@ -143,7 +189,12 @@
 			"patterns": [
 				{
 					"comment": "Hashtags",
-					"name": "constant.language",
+					"name": "constant.character.escape",
+					"match": "#line:[^\\s]+"
+				},
+				{
+					"comment": "Hashtags",
+					"name": "comment",
 					"match": "#[^\\s]+"
 				},
 				{
@@ -178,11 +229,11 @@
 						},
 						{
 							"include": "#format_functions"
-						},						
+						},
 						{
 							"comment": "Displayed text in an option",
 							"match": "[^{|\\]]+",
-							"name": "keyword.control"							
+							"name": "keyword.control"
 						}
 					]
 				}
@@ -211,11 +262,11 @@
 								"match": "\\\\."
 							}
 						]
-						
+
 					},
 					{
 						"match": "[^{=\\]]+",
-						"name": "keyword.control"							
+						"name": "markup.inserted"
 					}
 				]
 			}]
